@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ctx_c3d.c                                          :+:      :+:    :+:   */
+/*   key_bindings.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 22:25:34 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/04 05:25:28 by dyamen           ###   ########.fr       */
+/*   Created: 2023/09/04 12:36:33 by dyamen            #+#    #+#             */
+/*   Updated: 2023/09/04 12:41:17 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "c3d.h"
+
 #include <mlx.h>
 
-#include "c3d.h"
-#include "c3d_mlx.h"
-
-int	ctx_c3d_init(t_c3d_ctx *ctx)
+void	quit(void *ptr)
 {
-	if (mlx_ctx_init(&ctx->mlx))
-	{
-		ctx_c3d_destroy(ctx);
-		return (1);
-	}
-	return (0);
+	mlx_loop_end(((t_c3d_ctx *) ptr)->mlx.ctx);
 }
 
-void	ctx_c3d_destroy(t_c3d_ctx *ctx)
+int	c3d_init_key_map(t_c3d_ctx *ctx)
 {
-	mlx_ctx_destroy(&ctx->mlx);
+	ctx->key_map.bindings[KEY_BINDING__QUIT_GAME].keycode = 'q';
+	ctx->key_map.bindings[KEY_BINDING__QUIT_GAME]
+		.key_callback.action[KEY_ACTION__PRESSED].f = quit;
+	ctx->key_map.bindings[KEY_BINDING__QUIT_GAME]
+		.key_callback.action[KEY_ACTION__PRESSED].arg = ctx;
+	return (0);
 }

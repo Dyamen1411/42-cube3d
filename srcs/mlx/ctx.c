@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   c3d_mlx.c                                          :+:      :+:    :+:   */
+/*   ctx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 04:47:52 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/04 05:33:02 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/04 08:29:59 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "c3d_mlx.h"
+#include "mlx_ctx.h"
 
 #include <mlx.h>
 
@@ -37,10 +37,8 @@ int	mlx_ctx_init(t_mlx_ctx *mlx)
 
 void	mlx_ctx_destroy(t_mlx_ctx *mlx)
 {
-	if (mlx == NULL)
-		return ;
 	if (mlx->window)
-		mlx_destroy_window(mlx->ctx, (mlx->window));
+		mlx_destroy_window(mlx->ctx, mlx->window);
 	if (mlx->ctx)
 		free(mlx->ctx);
 	mlx->window = NULL;
