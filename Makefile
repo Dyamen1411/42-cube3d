@@ -50,3 +50,6 @@ fclean: clean
 	rm -f $(TARGET)
 
 re: fclean all
+
+run: $(TARGET)
+	./gen_map.sh | ./$(TARGET)
