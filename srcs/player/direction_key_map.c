@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:44:20 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/04 13:45:03 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/05 22:11:57 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 void	player_callback_rotate_right(t_player *player_ptr)
 {
-	player_ptr->r -= player_ptr->rotation_speed;
+	player_ptr->r += player_ptr->rotation_speed;
 }
 
 void	player_callback_rotate_left(t_player *player_ptr)
 {
-	player_ptr->r += player_ptr->rotation_speed;
+	player_ptr->r -= player_ptr->rotation_speed;
 }
 
 int	player_init_direction_key_map(t_player *player_ptr, t_key_map *key_map_ptr)

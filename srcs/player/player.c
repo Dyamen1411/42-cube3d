@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:18:05 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 18:57:21 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/05 21:44:51 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	_player_move(t_player *player_ptr, int dx, int dy)
 
 	c = cos(player_ptr->r);
 	s = sin(player_ptr->r);
-	player_ptr->x += player_ptr->move_speed * (dx * c + dy * s);
-	player_ptr->y += player_ptr->move_speed * (dy * c - dx * s);
+	player_ptr->x += player_ptr->move_speed * (dx * c - dy * s);
+	player_ptr->y += player_ptr->move_speed * (dx * s + dy * c);
 }
 
 void	player_move(t_player *player_ptr, t_player_movement_direction d)
