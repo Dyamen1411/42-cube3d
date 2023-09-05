@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:59:03 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/04 12:40:48 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/05 16:03:05 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(void)
 	ctx = (t_c3d_ctx *) malloc(sizeof(t_c3d_ctx));
 	if (!ctx)
 		return (EXIT_FAILURE);
+	_memset(ctx, 0, sizeof(t_c3d_ctx));
 	if (c3d_ctx_init(ctx))
 	{
 		free (ctx);

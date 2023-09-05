@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   io.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 08:22:19 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 15:05:59 by dyamen           ###   ########.fr       */
+/*   Created: 2023/09/05 15:34:42 by dyamen            #+#    #+#             */
+/*   Updated: 2023/09/05 16:01:29 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "key_map.h"
-
 #include "utils.h"
 
-int	key_map_init(t_key_map *key_map_ptr)
-{
-	int				i;
-	t_key_binding	*binding_ptr;
+#include <unistd.h>
 
-	i = 0;
-	binding_ptr = key_map_ptr->bindings;
-	while (i < KEY_BINDING_COUNT)
+int	read_n_bytes(int fd, void *buf, unsigned long byte_count)
+{
+	long	n;
+	char	*_buf;
+
+	_buf = buf;
+	while (byte_count--)
 	{
-		_memset(&binding_ptr[i], 0,
-			sizeof(t_key_binding));
-		binding_ptr[i].key_status = KEY_STATUS__UP;
-		binding_ptr[i].key_action = KEY_ACTION__NONE;
-		++i;
+		n = read(fd, _buf++, 1);
+		if (n <= 0)
+			return (1);
 	}
 	return (0);
+}
+
+int	read_long(int fd, void *ptr)
+{
+	return (read_n_bytes(fd, ptr, sizeof(long)));
+}
+
+int	read_int(int fd, void *ptr)
+{
+	return (read_n_bytes(fd, ptr, sizeof(int)));
 }

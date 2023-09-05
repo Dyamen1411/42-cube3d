@@ -6,22 +6,24 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:35:04 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/04 12:40:50 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/04 14:35:02 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef C3D_H
 # define C3D_H
 
-# include "mlx_ctx.h"
 # include "key_map.h"
+# include "mlx_ctx.h"
 # include "player.h"
 # include "utils.h"
+# include "world.h"
 
 typedef struct s_c3d_ctx {
 	t_mlx_ctx	mlx;
 	t_key_map	key_map;
 	t_player	player;
+	t_world		*world;
 }	t_c3d_ctx;
 
 // c3d_ctx_init: Allocates ressources to ctx then initializes ctx.

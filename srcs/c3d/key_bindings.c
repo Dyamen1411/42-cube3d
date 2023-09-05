@@ -6,13 +6,14 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:36:33 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/04 12:41:17 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/05 16:02:52 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "c3d.h"
 
 #include <mlx.h>
+#include <stdio.h>
 
 void	quit(void *ptr)
 {

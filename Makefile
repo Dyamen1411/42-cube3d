@@ -17,7 +17,11 @@ FILES	=	\
 			player/movement_key_map.c	\
 			player/player.c				\
 			player/utils.c				\
+			utils/io.c					\
+			world/world_loader.c		\
+			world/world.c				\
 			main.c						\
+			utils.c						\
 
 SRCS	=	$(addprefix $(SRC_DIR)/,$(FILES))
 OBJS	=	$(SRCS:%.c=%.o)

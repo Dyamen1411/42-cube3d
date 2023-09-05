@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:24:30 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/04 13:35:52 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/05 15:03:35 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,10 @@ typedef struct s_key_binding {
 
 typedef struct s_key_map {
 	t_key_binding	bindings[KEY_BINDING_COUNT];
-	void			*arg;
 }	t_key_map;
 
 t_key_binding	*__get_binding(t_key_map *key_map_ptr, int keycode);
-int				key_map_init(t_key_map *key_map_ptr, void *arg);
+int				key_map_init(t_key_map *key_map_ptr);
 void			key_map_process(t_key_map *key_map_ptr);
 void			key_map__key_pressed(t_key_map *key_map_ptr, int keycode);
 void			key_map__key_released(t_key_map *key_map_ptr, int keycode);

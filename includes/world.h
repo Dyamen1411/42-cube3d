@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   world.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 08:22:19 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 15:05:59 by dyamen           ###   ########.fr       */
+/*   Created: 2023/09/04 13:53:07 by dyamen            #+#    #+#             */
+/*   Updated: 2023/09/05 15:45:53 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "key_map.h"
+#ifndef WORLD_H
+# define WORLD_H
 
-#include "utils.h"
+typedef struct s_world {
+	struct s_walls {
+		unsigned long	color_count;
+		int				*colors;
+	}	walls;
+	struct s_map {
+		unsigned long	width;
+		unsigned long	height;
+		char			*layout;
+	} map;
+	char	*global_buffer;
+}	t_world;
 
-int	key_map_init(t_key_map *key_map_ptr)
-{
-	int				i;
-	t_key_binding	*binding_ptr;
+t_world	*world_load(int fd);
+void	world_delete(t_world **world);
 
-	i = 0;
-	binding_ptr = key_map_ptr->bindings;
-	while (i < KEY_BINDING_COUNT)
-	{
-		_memset(&binding_ptr[i], 0,
-			sizeof(t_key_binding));
-		binding_ptr[i].key_status = KEY_STATUS__UP;
-		binding_ptr[i].key_action = KEY_ACTION__NONE;
-		++i;
-	}
-	return (0);
-}
+#endif

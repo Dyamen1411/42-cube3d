@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 04:47:52 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/04 08:29:59 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/05 15:09:34 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	mlx_ctx_destroy(t_mlx_ctx *mlx)
 	if (mlx->window)
 		mlx_destroy_window(mlx->ctx, mlx->window);
 	if (mlx->ctx)
+	{
+		mlx_destroy_display(mlx->ctx);
 		free(mlx->ctx);
+	}
 	mlx->window = NULL;
 	mlx->ctx = NULL;
 }
