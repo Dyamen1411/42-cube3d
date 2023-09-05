@@ -1,6 +1,15 @@
+TARGET	=	cube3d
+
+MLX_DIR	=	minilibx-linux
+MLX		=	$(MLX_DIR)/libmlx.a
+
+CC		=	cc
+CFLAGS	=	-Wall -Werror -Wextra -I$(MLX_DIR)	\
+			-g
+LFLAGS	=	-L$(MLX_DIR) -lmlx -lm -lX11 -lXext
+
 SRC_DIR	=	srcs
 INC_DIR	=	includes
-MLX_DIR	=	minilibx-linux
 
 FILES	=	\
 			c3d/ctx.c					\
@@ -27,13 +36,6 @@ FILES	=	\
 SRCS	=	$(addprefix $(SRC_DIR)/,$(FILES))
 OBJS	=	$(SRCS:%.c=%.o)
 
-CC		=	cc
-CFLAGS	=	-Wall -Werror -Wextra -I$(MLX_DIR)	\
-			-g
-LFLAGS	=	-L$(MLX_DIR) -lmlx -lm -lX11 -lXext
-
-TARGET	=	cube3d
-
 .PHONY: all clean fclean re run debug
 
 all: $(TARGET)
@@ -52,8 +54,13 @@ run: $(TARGET)
 debug: $(TARGET)
 	./gen_map.sh | valgrind ./$(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CC) -o $@ $^ $(LFLAGS)
+$(MLX):
+	git submodule init $(MLX_DIR)
+	git submodule update $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR)
+
+$(TARGET): $(MLX) $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LFLAGS)
 
 %.o: %.c
 	$(CC) -c -o $@ $< -I$(INC_DIR) $(CFLAGS)
