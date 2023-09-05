@@ -15,7 +15,6 @@ FILES		=	\
 				c3d/ctx.c					\
 				c3d/game_loop.c				\
 				c3d/hook__key.c				\
-				c3d/hook__resize.c			\
 				c3d/key_bindings.c			\
 				key_map/actions.c			\
 				key_map/init.c				\
@@ -27,6 +26,7 @@ FILES		=	\
 				player/movement_key_map.c	\
 				player/player.c				\
 				player/utils.c				\
+				renderer/update_window.c	\
 				utils/io.c					\
 				world/world_loader.c		\
 				world/world.c				\
@@ -36,7 +36,7 @@ FILES		=	\
 SRCS		=	$(addprefix $(SRC_DIR)/,$(FILES))
 OBJS		=	$(SRCS:%.c=%.o)
 
-.PHONY: all clean fclean re run debug
+.PHONY: all clean fclean re run debug norminette
 
 all: $(TARGET)
 
@@ -53,6 +53,9 @@ run: $(TARGET)
 
 debug: $(TARGET)
 	./gen_map.sh | valgrind ./$(TARGET)
+
+norminette:
+	norminette $(SRC_DIR) $(INC_DIR)
 
 $(MLX_DIR)/lib$(MLX).a:
 	git submodule init $(MLX_DIR)

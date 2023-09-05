@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:35:04 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 17:13:29 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/05 19:18:49 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int		c3d_game_loop(t_c3d_ctx	*ctx);
 int		c3d_hook__key_pressed(int keycode, t_c3d_ctx *ctx);
 int		c3d_hook__key_released(int keycode, t_c3d_ctx *ctx);
 
-int		c3d_hook__resize(XConfigureEvent *e, t_c3d_ctx *ctx);
+void	c3d_update_window(t_c3d_ctx *ctx);
 
 #endif
