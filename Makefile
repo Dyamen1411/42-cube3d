@@ -5,8 +5,9 @@ MLX_DIR	=	minilibx-linux
 FILES	=	\
 			c3d/ctx.c					\
 			c3d/game_loop.c				\
+			c3d/hook__key.c				\
+			c3d/hook__resize.c			\
 			c3d/key_bindings.c			\
-			c3d/key_hook.c				\
 			key_map/actions.c			\
 			key_map/init.c				\
 			key_map/key_map.c			\
