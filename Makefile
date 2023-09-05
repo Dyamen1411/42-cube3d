@@ -33,13 +33,7 @@ LFLAGS	=	-L$(MLX_DIR) -lmlx -lm -lX11 -lXext
 
 TARGET	=	cube3d
 
-$(TARGET): $(OBJS)
-	$(CC) -o $@ $^ $(LFLAGS)
-
-%.o: %.c
-	$(CC) -c -o $@ $< -I$(INC_DIR) $(CFLAGS)
-
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re run debug
 
 all: $(TARGET)
 
@@ -53,3 +47,12 @@ re: fclean all
 
 run: $(TARGET)
 	./gen_map.sh | ./$(TARGET)
+
+debug: $(TARGET)
+	./gen_map.sh | valgrind ./$(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) -o $@ $^ $(LFLAGS)
+
+%.o: %.c
+	$(CC) -c -o $@ $< -I$(INC_DIR) $(CFLAGS)
