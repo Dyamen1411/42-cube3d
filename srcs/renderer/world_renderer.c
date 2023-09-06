@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:05:45 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/07 00:14:07 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/07 00:24:19 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,6 @@ void	fill_col(t_mlx_ctx *mlx_ctx, int x, int height, int color)
 		++y;
 	}
 }
-
-// int	compute_column(t_res *res, t_render_settings *s, t_world *world)
-// {
-// 	s->map_pos.x = (long) s->pos.x;
-// 	s->map_pos.y = (long) s->pos.y;
-// 	s->d_dist.x = __DBL_MAX__;
-// 	s->d_dist.y = __DBL_MAX__;
-// 	prepare_column_computation(s);
-// 	res->side = 0;
-// 	res->wall_type = 0;
-// 	while (!res->wall_type)
-// 	{
-// 		res->side = s->side_dist.x >= s->side_dist.y;
-// 		((double *) &s->side_dist)[res->side]
-// 			+= ((double *) &s->d_dist)[res->side];
-// 		((long *) &s->map_pos)[res->side]
-// 			+= ((double *) &s->step)[res->side];
-// 		res->wall_type = world->map.layout
-// 		[s->map_pos.x + world->map.width * s->map_pos.y];
-// 	}
-// 	s->perp_dist = res->side * (s->side_dist.y - s->d_dist.y)
-// 		+ (!res->side) * (s->side_dist.x - s->d_dist.x);
-// 	res->d = s->perp_dist;
-// 	return (1);
-// }
 
 int	is_wall(void *data)
 {
