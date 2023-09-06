@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 05:16:42 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 17:09:49 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/07 00:24:48 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "key_map.h"
 
 #include <mlx.h>
-#include <stdio.h>
 
 int	c3d_hook__key_pressed(int keycode, t_c3d_ctx *ctx)
 {

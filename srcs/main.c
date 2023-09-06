@@ -6,11 +6,10 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:59:03 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 19:28:09 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/07 00:24:39 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <mlx.h>
 #include <X11/Xlib.h>

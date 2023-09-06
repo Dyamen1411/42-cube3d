@@ -6,13 +6,11 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:44:20 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 22:11:57 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/07 00:25:02 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
-
-#include <stdio.h>
 
 void	player_callback_rotate_right(t_player *player_ptr)
 {

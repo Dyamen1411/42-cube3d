@@ -6,14 +6,13 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:18:05 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/06 03:37:30 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/07 00:25:06 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 
 #include <math.h>
-#include <stdio.h>
 
 void	_player_move(t_player *player_ptr, int dx, int dy)
 {

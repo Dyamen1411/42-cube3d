@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:07:09 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/06 01:47:02 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/07 00:24:53 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 #include "utils.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
