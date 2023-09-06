@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 05:07:19 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 18:56:16 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/06 01:56:55 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 # include "key_map.h"
 
 # define PLAYER_DEFAULT_MOVE_SPEED 0.1
-# define PLAYER_DEFAULT_ROTATION_SPEED 0.01
+# define PLAYER_DEFAULT_ROTATION_SPEED 0.1
 
 typedef struct s_player
 {
 	double	x;
 	double	y;
 	double	r;
+	double	fov;
 	double	move_speed;
 	double	rotation_speed;
 }	t_player;

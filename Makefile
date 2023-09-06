@@ -5,7 +5,7 @@ MLX			=	mlx
 
 CC			=	cc
 CFLAGS		=	-Wall -Werror -Wextra -I$(MLX_DIR)	\
-			-g
+			-g -O3
 LFLAGS		=	-L$(MLX_DIR) -l$(MLX) -lm -lX11 -lXext
 
 SRC_DIR		=	srcs
@@ -20,6 +20,8 @@ FILES		=	\
 				key_map/init.c				\
 				key_map/key_map.c			\
 				key_map/utils.c				\
+				math/field2d.c				\
+				math/vector2d.c				\
 				mlx/ctx.c					\
 				player/direction_key_map.c	\
 				player/init.c				\
@@ -27,6 +29,7 @@ FILES		=	\
 				player/player.c				\
 				player/utils.c				\
 				renderer/update_window.c	\
+				renderer/world_renderer.c	\
 				utils/io.c					\
 				world/world_loader.c		\
 				world/world.c				\

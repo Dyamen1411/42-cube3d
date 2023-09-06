@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 06:18:05 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 21:44:51 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/06 03:37:30 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	_player_move(t_player *player_ptr, int dx, int dy)
 void	player_move(t_player *player_ptr, t_player_movement_direction d)
 {
 	if (d == PLAYER_MOVEMENT_DIRECTION__FORWARD)
-		_player_move(player_ptr, 0, -1);
-	else if (d == PLAYER_MOVEMENT_DIRECTION__LEFT)
-		_player_move(player_ptr, -1, 0);
-	else if (d == PLAYER_MOVEMENT_DIRECTION__BACKWARD)
-		_player_move(player_ptr, 0, 1);
-	else if (d == PLAYER_MOVEMENT_DIRECTION__RIGHT)
 		_player_move(player_ptr, 1, 0);
+	else if (d == PLAYER_MOVEMENT_DIRECTION__LEFT)
+		_player_move(player_ptr, 0, -1);
+	else if (d == PLAYER_MOVEMENT_DIRECTION__BACKWARD)
+		_player_move(player_ptr, -1, 0);
+	else if (d == PLAYER_MOVEMENT_DIRECTION__RIGHT)
+		_player_move(player_ptr, 0, 1);
 }
 
 void	player_set_speed(t_player *player_ptr, double move_speed)

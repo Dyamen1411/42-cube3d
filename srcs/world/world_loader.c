@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:07:09 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 18:59:52 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/06 01:47:02 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 int	load_header(int fd, t_world *world)
 {
 	return (read_long(fd, &world->map.width)
-		|| read_long(fd, &world->map.width)
-		|| read_long(fd, &world->walls.colors)
+		|| read_long(fd, &world->map.height)
+		|| read_long(fd, &world->walls.color_count)
 	);
 }
 
@@ -51,10 +51,15 @@ int	load_layout(int fd, t_world *world)
 
 int	load_colors(int fd, t_world *world)
 {
-	unsigned long	size;
+	unsigned long	count;
+	int				*colors;
 
-	size = world->walls.color_count * sizeof(int);
-	return (read_n_bytes(fd, world->walls.colors, size));
+	count = world->walls.color_count;
+	colors = world->walls.colors;
+	while (count--)
+		if (read_int(fd, colors++))
+			return (1);
+	return (0);
 }
 
 t_world	*world_load(int fd)

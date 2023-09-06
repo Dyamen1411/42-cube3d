@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 15:34:42 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/05 16:09:36 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/06 01:39:40 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ int	read_n_bytes(int fd, void *buf, unsigned long byte_count)
 	char	*_buf;
 
 	_buf = buf;
-	while (byte_count--)
+	while (byte_count)
 	{
-		n = read(fd, _buf++, 1);
+		n = read(fd, _buf, byte_count);
 		if (n <= 0)
 			return (1);
+		_buf += n;
+		byte_count -= n;
 	}
 	return (0);
 }
