@@ -35,7 +35,7 @@ typedef enum e_player_movement_direction {
 	PLAYER_MOVEMENT_DIRECTION__RIGHT,
 }	t_player_movement_direction;
 
-void	__set_status_down_key_binding(t_key_binding *key_binding, int keycode, 
+void	__set_status_down_key_binding(t_key_binding *key_binding, int keycode,
 			void (*f)(t_player *), t_player *arg);
 
 int		player_init(t_player *player_ptr, t_key_map *key_map_ptr);

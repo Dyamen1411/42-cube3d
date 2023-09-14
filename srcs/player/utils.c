@@ -12,7 +12,7 @@
 
 #include "player.h"
 
-void	__set_status_down_key_binding(t_key_binding *key_binding, int keycode, 
+void	__set_status_down_key_binding(t_key_binding *key_binding, int keycode,
 	void (*f)(t_player *), t_player *arg)
 {
 	key_binding->keycode = keycode;
