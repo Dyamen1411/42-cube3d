@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:05:45 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/07 00:24:19 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/14 17:52:57 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,41 +18,31 @@
 
 #define MAX_ITR_COUNT 128
 
-void	fill_col(t_mlx_ctx *mlx_ctx, int x, int height, int color)
+void	fill_col(t_mlx_ctx *mlx_ctx, int x, int height, int *texture)
 {
-	int	y;
-	int	*buffer;
+	long	y;
+	int		*buffer;
+	long	wall_start;
+	long	wall_end;
 
-	if (height < 0)
-		return ;
-	if ((unsigned int) height > mlx_ctx->window.height)
-		height = mlx_ctx->window.height;
-	height = (height + 1) / 2;
-	buffer = mlx_ctx->window.back_buffer;
-	buffer += x + mlx_ctx->window.width * mlx_ctx->window.height / 2;
+	height = clamp(height, 0, mlx_ctx->window.height - 1);
+	wall_start = (mlx_ctx->window.height - height) / 2;
+	wall_end = (mlx_ctx->window.height + height) / 2;
+	wall_start = clamp(wall_start, 0, mlx_ctx->window.height - 1);
+	wall_end = clamp(wall_end, 0, mlx_ctx->window.height - 1);
+	buffer = mlx_ctx->window.back_buffer + x;
 	y = 0;
-	while (y < height)
+	while (y < mlx_ctx->window.height)
 	{
-		*(buffer + y * mlx_ctx->window.width) = color;
-		*(buffer - y * mlx_ctx->window.width) = color;
+		if (wall_start <= y && y < wall_end)
+			*buffer = texture[(long)((TEXTURE_HEIGHT - 1)
+					* ((double)(y - wall_start)
+						/ (double)(wall_end - wall_start - 1)))];
+		else
+			*buffer = 0;
+		buffer += mlx_ctx->window.width;
 		++y;
 	}
-}
-
-int	is_wall(void *data)
-{
-	return (*((char *) data) != 0);
-}
-
-void	generate_field(t_world *world, t_field2d *field)
-{
-	*field = (t_field2d){
-		world->map.layout,
-		sizeof(char),
-		world->map.width,
-		world->map.height,
-		is_wall
-	};
 }
 
 void	prepare_render(t_player *player,
@@ -66,28 +56,45 @@ void	prepare_render(t_player *player,
 	p->pos = (t_vector2d){player->x, player->y};
 }
 
-void	render_world(t_world *world, t_player *player, t_c3d_ctx *ctx)
+int	*compute_texture_offset(t_world *world, t_player *player,
+	t_vector2d_hit *hit)
 {
-	t_vector2d_hit		h;
-	t_oriented_vector2d	plane;
+	int		*buf;
+	double	wallx;
+	long	texx;
+
+	wallx = (&player->x)[1 - hit->side]
+		+ hit->distance * (&hit->ray.dir.x)[1 - hit->side];
+	wallx -= floor(wallx);
+	texx = (long)(wallx * TEXTURE_WIDTH);
+	if ((hit->side || hit->ray.dir.x <= 0)
+		&& (!hit->side || hit->ray.dir.y >= 0))
+		texx = TEXTURE_WIDTH - texx - 1;
+	buf = world->textures.list[(*((char *) hit->what)) - 1].data[texx];
+	return (buf);
+}
+
+void	render_world(t_world *world, t_player *player_ptr, t_c3d_ctx *ctx)
+{
 	t_field2d			field;
-	t_oriented_vector2d	p;
+	t_vector2d_hit		hit;
+	t_oriented_vector2d	player;
+	t_oriented_vector2d	plane;
 	unsigned long		col;
 
-	generate_field(world, &field);
-	prepare_render(player, &plane, &p);
+	prepare_render(player_ptr, &plane, &player);
+	field = world_as_field(world);
 	col = 0;
 	while (col < ctx->mlx.window.width)
 	{
-		p.dir = v2d_mul(&plane.dir,
+		player.dir = v2d_mul(&plane.dir,
 				2. * col / (double)ctx->mlx.window.width - 1.);
-		p.dir = v2d_add(&p.dir, &plane.pos);
-		h = v2d_hit(&p, &field, MAX_ITR_COUNT);
-		fill_col(&ctx->mlx, col, ctx->mlx.window.height, 0);
-		if (h.hit)
+		player.dir = v2d_add(&player.dir, &plane.pos);
+		hit = v2d_hit(&player, &field, MAX_ITR_COUNT);
+		if (hit.has_hit)
 			fill_col(&ctx->mlx, col,
-				ctx->mlx.window.height / h.distance,
-				world->walls.colors[(*((char *) h.what)) - 1]);
+				ctx->mlx.window.height / hit.distance,
+				compute_texture_offset(world, player_ptr, &hit));
 		++col;
 	}
 }

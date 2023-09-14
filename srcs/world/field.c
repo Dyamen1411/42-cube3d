@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   field.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 04:54:51 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/14 17:08:48 by dyamen           ###   ########.fr       */
+/*   Created: 2023/09/14 17:14:29 by dyamen            #+#    #+#             */
+/*   Updated: 2023/09/14 17:19:23 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "world.h"
 
-# include <stdlib.h>
+int	world_is_wall(char *wall_ptr)
+{
+	return (*wall_ptr != 0);
+}
 
-void	_memset(void *dst, int c, unsigned int n);
-
-int		read_n_bytes(int fd, void *ptr, unsigned long byte_count);
-int		read_long(int fd, void *ptr);
-int		read_int(int fd, void *ptr);
-
-long	clamp(long value, long min, long max);
-
-#endif
+t_field2d	world_as_field(t_world *world)
+{
+	return ((t_field2d){
+		world->map.layout,
+		sizeof(*world->map.layout),
+		world->map.width,
+		world->map.height,
+		(int (*)(void *)) world_is_wall
+	});
+}

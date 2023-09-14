@@ -5,7 +5,7 @@ MLX			=	mlx
 
 CC			=	cc
 CFLAGS		=	-Wall -Werror -Wextra -I$(MLX_DIR)	\
-			-g -O3
+			-g -O4
 LFLAGS		=	-L$(MLX_DIR) -l$(MLX) -lm -lX11 -lXext
 
 SRC_DIR		=	srcs
@@ -31,6 +31,8 @@ FILES		=	\
 				renderer/update_window.c	\
 				renderer/world_renderer.c	\
 				utils/io.c					\
+				utils/utils.c				\
+				world/field.c				\
 				world/world_loader.c		\
 				world/world.c				\
 				main.c						\
@@ -38,12 +40,16 @@ FILES		=	\
 
 SRCS		=	$(addprefix $(SRC_DIR)/,$(FILES))
 OBJS		=	$(SRCS:%.c=%.o)
+DEPS		=	$(SRCS:%.c=%.d)
 
-.PHONY: all clean fclean re run debug norminette
+NODEPS		=	clean fclean norminette
+
+SUFFIXES	+=	.d
 
 all: $(TARGET)
 
 clean:
+	rm -f $(DEPS)
 	rm -f $(OBJS)
 
 fclean: clean
@@ -65,8 +71,18 @@ $(MLX_DIR)/lib$(MLX).a:
 	git submodule update $(MLX_DIR)
 	$(MAKE) -C $(MLX_DIR)
 
+
 $(TARGET): $(MLX_DIR)/lib$(MLX).a $(OBJS)
 	$(CC) -o $@ $(OBJS) $(LFLAGS)
 
-%.o: %.c
+%.o: %.c %.d
 	$(CC) -c -o $@ $< -I$(INC_DIR) $(CFLAGS)
+
+%.d: %.c
+	$(CC) -MM -MT '$(patsubst %.c,%.o,$<)' $< -MF $@ -I$(INC_DIR) $(CFLAGS)
+
+ifeq (0, $(words $(findstring $(MAKECMDGOALS), $(NODEPS))))
+-include $(DEPS)
+endif
+
+.PHONY: all clean fclean re run debug norminette
