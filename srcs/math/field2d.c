@@ -6,7 +6,7 @@
 /*   By: dyamen <dyamen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 08:09:25 by dyamen            #+#    #+#             */
-/*   Updated: 2023/09/12 18:08:26 by dyamen           ###   ########.fr       */
+/*   Updated: 2023/09/14 19:31:42 by dyamen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ t_vector2d_hit	v2d_hit(const t_oriented_vector2d *ov, const t_field2d *field,
 	t_v2d_hit_vars	v;
 
 	init(ov, &v);
-	while (!v.h.has_hit && max_itr_count--)
+	while (max_itr_count--)
 	{
 		v.h.side = v.side_dist.x >= v.side_dist.y;
 		(&v.side_dist.x)[v.h.side] += (&v.delta_dist.x)[v.h.side];
 		(&v.map_pos.x)[v.h.side] += (&v.step.x)[v.h.side];
-		if (v.map_pos.x < 0 || v.map_pos.x > (long) field->width
-			|| v.map_pos.y < 0 || v.map_pos.y > (long) field->height)
+		if (v.map_pos.x < 0 || v.map_pos.x >= (long) field->width
+			|| v.map_pos.y < 0 || v.map_pos.y >= (long) field->height)
 			continue ;
 		v.h.what = ((char *) field->data) + field->data_size
 			* (v.map_pos.x + field->width * v.map_pos.y);
@@ -69,6 +69,7 @@ t_vector2d_hit	v2d_hit(const t_oriented_vector2d *ov, const t_field2d *field,
 		v.h.distance = (&v.side_dist.x)[v.h.side] - (&v.delta_dist.x)[v.h.side];
 		v.h.ray.pos = v2d_mul(&v.h.ray.dir, v.h.distance);
 		v.h.ray.pos = v2d_add(&v.h.ray.pos, &ov->pos);
+		break ;
 	}
 	return (v.h);
 }
