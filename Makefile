@@ -64,7 +64,10 @@ debug: $(TARGET)
 	./gen_map.sh | valgrind ./$(TARGET)
 
 norminette:
-	norminette $(SRC_DIR) $(INC_DIR)
+	@norminette $(SRC_DIR) $(INC_DIR)									\
+		| grep -v "^[_0-9a-zA-Z]\+\(/[_0-9a-zA-Z]\+\)*\.[ch]: OK!$$"	\
+		&& exit 1														\
+		|| exit 0														\
 
 $(MLX_DIR)/lib$(MLX).a:
 	git submodule init $(MLX_DIR)
